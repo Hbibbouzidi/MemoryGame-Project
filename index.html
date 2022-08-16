@@ -71,28 +71,28 @@
     </div>
     <table>
         <tr>
-            <td><img id="1" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="2" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="3" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="4" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="1" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="2" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="3" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="4" src="images/backCard.png" onclick=change(event)></td>
         </tr>
         <tr>
-            <td><img id="5" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="6" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="7" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="8" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="5" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="6" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="7" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="8" src="images/backCard.png" onclick=change(event)></td>
         </tr>
         <tr>
-            <td><img id="9" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="10" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="11" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="12" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="9" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="10" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="11" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="12" src="images/backCard.png" onclick=change(event)></td>
         </tr>
         <tr>
-            <td><img id="13" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="14" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="15" src="images/mem.png" onclick=change(event)></td>
-            <td><img id="16" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="13" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="14" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="15" src="images/backCard.png" onclick=change(event)></td>
+            <td><img id="16" src="images/backCard.png" onclick=change(event)></td>
         </tr>
     </table>
     <div id="startBtnDiv"><img id="startButton" src="images/button.png" onclick="newGame()"></div>
@@ -124,10 +124,13 @@
             score1=0;
             score2=0;
             
+            //Reset scores to 0
             document.getElementById("score1").value=0;
             document.getElementById("score2").value=0;
+
+            //Reset cards images to backCards image
             for(let j = 1; j<17;j++){
-                document.getElementById(j).src="images/mem.png";
+                document.getElementById(j).src="images/backCard.png";
             }
 
             for(let m=0;m<8;m++){
@@ -135,6 +138,7 @@
                 images[m].pos2="";
             }
 
+            //Choose random position for images
             let i=0;
             while(i<16){
             let im = Math.floor(Math.random()*8);
@@ -203,8 +207,8 @@
                 }else{
 
                     //Flip the card to the original state
-                    document.getElementById(flip+1).src="images/mem.png";
-                    document.getElementById(n).src="images/mem.png";
+                    document.getElementById(flip+1).src="images/backCard.png";
+                    document.getElementById(n).src="images/backCard.png";
                     cards[flip].flipped="no";
                     cards[n-1].flipped="no";
 
