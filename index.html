@@ -165,11 +165,15 @@
                 //second card flip(if there are one or more cards flipped)
                 document.getElementById(n).src="images/"+cards[n-1].cName+".jpg";
 
-                //timer
+                //timer for 2 cards to stay flipped for 400ms
                 setTimeout(()=>{
+
+                    //check if the 2 cards flipped have the same image
                     if(cards[flip].cName==cards[n-1].cName){
                     cards[n-1].flipped="yes";
                     flippedCards+=2;
+                    
+                    //Manage Game Score
                     if(document.getElementById("player").value=="Player 1")
                     {
                         score1++;
@@ -179,6 +183,8 @@
                         score2++;
                         document.getElementById("score2").value=score2;
                     }
+
+                    //Manage Game Winner when all cards are flipped and start new game
                     if(flippedCards==16){
                         if(score1>score2){
                             alert("Player 1 win. Click to start new game.");
@@ -192,11 +198,17 @@
                         }
                     }
                     flip=100;
+
+                    //if the 2 cards flipped don't have the same image
                 }else{
+
+                    //Flip the card to the original state
                     document.getElementById(flip+1).src="images/mem.png";
                     document.getElementById(n).src="images/mem.png";
                     cards[flip].flipped="no";
                     cards[n-1].flipped="no";
+
+                    //Change turn to play
                     if(document.getElementById("player").value=="Player 1"){
                         document.getElementById("player").value="Player 2";
                     }else if(document.getElementById("player").value=="Player 2"){
