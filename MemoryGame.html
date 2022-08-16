@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Memory Game</title>
+        <style>
+            td{
+                width: 80px;
+                height: 100px;
+            }
+            img{
+                width: 80px;
+                height: 100px;
+                border-radius: 6px;
+            }
+            input{
+                width: 70px;
+            }
+            #container{
+                background-image: url("images/bg.jpg");
+                width: 340px;
+                margin: 10px;
+                padding: 10px;
+            }
+            h1{
+                background-color: black;
+                opacity: 70%;
+                color: white;
+                padding:10px;
+                margin: 10px;;
+                text-align: center;
+                border-radius: 7px;
+            }
+            #info{
+                background-color: black;
+                opacity: 70%;
+                color: white;
+                padding:10px;
+                margin: 10px;;
+                text-align: center;
+                border-radius: 7px;
+            }
+            #score{
+                padding:10px;
+                border: 1px solid black;
+                border-radius: 7px;
+            }
+            #startBtnDiv{
+                width: 320px;
+                text-align: center;
+            }
+            #startButton{
+                border-radius: 5px;
+                width: 250px;
+                height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="container">
+    <h1>Memory Game</h1>
+    <div id="info">
+        <label>Turn to play</label>
+        <input id="player" readonly="true" value="Player 1"/>
+    </div>
+    <div id="score">
+        <h2>Score :</h2>
+        <label>Player 1</label>
+        <input id="score1" readonly="true" value="0"/>
+        <label>Player 2</label>
+        <input id="score2" readonly="true" value="0"/>
+    </div>
+    <table>
+        <tr>
+            <td><img id="1" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="2" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="3" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="4" src="images/mem.png" onclick=change(event)></td>
+        </tr>
+        <tr>
+            <td><img id="5" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="6" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="7" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="8" src="images/mem.png" onclick=change(event)></td>
+        </tr>
+        <tr>
+            <td><img id="9" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="10" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="11" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="12" src="images/mem.png" onclick=change(event)></td>
+        </tr>
+        <tr>
+            <td><img id="13" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="14" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="15" src="images/mem.png" onclick=change(event)></td>
+            <td><img id="16" src="images/mem.png" onclick=change(event)></td>
+        </tr>
+    </table>
+    <div id="startBtnDiv"><img id="startButton" src="images/button.png" onclick="newGame()"></div>
+    </div>
+
+    <!-- Scripts-->
+
+    <script>
+        //Create Arrow that contains all of images games infos
+        let images = [];
+        images[0] = {name:"ball",pos1:"", pos2:""};
+        images[1] = {name:"boat",pos1:"", pos2:""};
+        images[2] = {name:"cola",pos1:"", pos2:""};
+        images[3] = {name:"burger",pos1:"", pos2:""};
+        images[4] = {name:"fanta",pos1:"", pos2:""};
+        images[5] = {name:"dog",pos1:"", pos2:""};
+        images[6] = {name:"lake",pos1:"", pos2:""};
+        images[7] = {name:"bicycle",pos1:"", pos2:""};
+
+        let cards =[];
+        let flippedCards=0;
+        let score1=0;
+        let score2=0;
+        let flip=100;
+
+        //Start new game function
+        function newGame(){
+            flippedCards=0;
+            score1=0;
+            score2=0;
+            
+            document.getElementById("score1").value=0;
+            document.getElementById("score2").value=0;
+            for(let j = 1; j<17;j++){
+                document.getElementById(j).src="images/mem.png";
+            }
+
+            for(let m=0;m<8;m++){
+                images[m].pos1="";
+                images[m].pos2="";
+            }
+
+            let i=0;
+            while(i<16){
+            let im = Math.floor(Math.random()*8);
+            if(images[im].pos1==""){
+                cards[i]={cName:images[im].name,flipped:"no"};
+                images[im].pos1="done";
+                i++;
+            }else if(images[im].pos2==""){
+                cards[i]={cName:images[im].name,flipped:"no"};
+                images[im].pos2="done";
+                i++;
+            }
+            }
+        }
+
+        newGame();
+
+        //instructions to do when click a card
+        function change(e){
+            n=parseInt(e.target.id);
+            if(cards[n-1].flipped=="no"){
+                //first card flip (if there are no card flipped)
+            if(flip==100){
+                document.getElementById(n).src="images/"+cards[n-1].cName+".jpg";
+                flip=n-1;
+                cards[n-1].flipped = "yes";
+            }else {
+                //second card flip(if there are one or more cards flipped)
+                document.getElementById(n).src="images/"+cards[n-1].cName+".jpg";
+
+                //timer
+                setTimeout(()=>{
+                    if(cards[flip].cName==cards[n-1].cName){
+                    cards[n-1].flipped="yes";
+                    flippedCards+=2;
+                    if(document.getElementById("player").value=="Player 1")
+                    {
+                        score1++;
+                        document.getElementById("score1").value=score1;
+                    }
+                    if(document.getElementById("player").value=="Player 2"){
+                        score2++;
+                        document.getElementById("score2").value=score2;
+                    }
+                    if(flippedCards==16){
+                        if(score1>score2){
+                            alert("Player 1 win. Click to start new game.");
+                            newGame();
+                        }else if(score1<score2){
+                            alert("Player 2 win. Click to start new game.");
+                            newGame();
+                        }else{
+                            alert("Game finished with no winner! Click to start new game");
+                            newGame();
+                        }
+                    }
+                    flip=100;
+                }else{
+                    document.getElementById(flip+1).src="images/mem.png";
+                    document.getElementById(n).src="images/mem.png";
+                    cards[flip].flipped="no";
+                    cards[n-1].flipped="no";
+                    if(document.getElementById("player").value=="Player 1"){
+                        document.getElementById("player").value="Player 2";
+                    }else if(document.getElementById("player").value=="Player 2"){
+                        document.getElementById("player").value="Player 1";
+                    }
+                    flip=100;
+                }},400);
+            }
+            }
+        }
+    </script>
+    </body>
+</html>
